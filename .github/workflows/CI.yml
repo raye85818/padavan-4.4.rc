@@ -44,7 +44,7 @@ jobs:
         mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: JDCLOUD-RE-CP-02
+        TNAME: X18G
         KERNEL: 4.4
       run: |
         cd /opt/rt-n56u/trunk
