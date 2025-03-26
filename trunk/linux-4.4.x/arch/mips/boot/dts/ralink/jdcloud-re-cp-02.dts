@@ -37,20 +37,9 @@
 
       leds {
              compatible = "gpio-leds";
-
-                        led-lan {
-                        color = <LED_COLOR_ID_blue>;
-                      function = LED_FUNCTION_LAN;
-                      gpios = <&gpio 4 GPIO_ACTIVE_LOW>;
-             };
-
-               led-wan-orange {
-                      color = <LED_COLOR_ID_AMBER>;
-                      function = LED_FUNCTION_WAN;
-              };
-
-                 led-wan-green {
-                      color = <LED_COLOR_ID_GREEN>;
+                  
+             led-wan-blue {
+                      color = <LED_COLOR_ID_blue>;
                       function = LED_FUNCTION_WAN;
                         gpios = <&gpio 14 GPIO_ACTIVE_LOW>;
              };
