@@ -25,24 +25,26 @@
               bootargs = "console=ttyS0,115200";
        };
 
-      keys {
-                compatible = "gpio-keys";
+     gpio-keys-polled {
+		compatible = "gpio-keys-polled";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		poll-interval = <20>;
 
-               button-reset {
-                       label = "reset";
-                       gpios = <&gpio 8 GPIO_ACTIVE_LOW>;
-                       linux,code = <KEY_RESTART>;
-               };
-      };
+		reset {
+			label = "reset";
+			gpios = <&gpio 8 GPIO_ACTIVE_LOW>;
+			linux,code = <KEY_RESTART>;
+		};
+		};
 
       leds {
              compatible = "gpio-leds";
                   
-             led-wan-blue {
-                      color = <LED_COLOR_ID_blue>;
-                      function = LED_FUNCTION_WAN;
-                        gpios = <&gpio 14 GPIO_ACTIVE_LOW>;
-             };
+             sys_blue {
+			label = "power";
+			gpios = <&gpio 7 GPIO_ACTIVE_LOW>;
+		};
  
                led-wifi5g {
                      color = <LED_COLOR_ID_GREEN>;
