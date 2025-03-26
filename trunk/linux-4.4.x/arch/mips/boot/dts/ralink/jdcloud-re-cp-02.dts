@@ -13,44 +13,71 @@
 		bootargs = "console=ttyS0,115200";
 	};
 
-	leds {
-		compatible = "gpio-leds";
+                aliases {
+               led-boot = &led_power;
+               led-failsafe = &led_power;
+               led-running = &led_power;
+               led-upgrade = &led_power;
+               label-mac-device = &gmac0;
+       };
+ 
+              chosen {
+              bootargs = "console=ttyS0,115200";
+       };
 
-		sys_red {
-			label = "power_2";
-			gpios = <&gpio0 6 GPIO_ACTIVE_LOW>;
-		};
+      keys {
+                compatible = "gpio-keys";
 
-		sys_green {
-			label = "power_3";
-			gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
-		};
+               button-reset {
+                       label = "reset";
+                       gpios = <&gpio 8 GPIO_ACTIVE_LOW>;
+                       linux,code = <KEY_RESTART>;
+               };
+      };
 
-		sys_blue {
-			label = "power";
-			gpios = <&gpio0 7 GPIO_ACTIVE_LOW>;
-		};
-	};
+      leds {
+             compatible = "gpio-leds";
 
-	gpio-keys-polled {
-		compatible = "gpio-keys-polled";
-		#address-cells = <1>;
-		#size-cells = <0>;
-		poll-interval = <20>;
+                        led-lan {
+                        color = <LED_COLOR_ID_blue>;
+                      function = LED_FUNCTION_LAN;
+                      gpios = <&gpio 4 GPIO_ACTIVE_LOW>;
+             };
 
-		reset {
-			label = "reset";
-			gpios = <&gpio0 8 GPIO_ACTIVE_LOW>;
-			linux,code = <KEY_RESTART>;
-		};
+               led-wan-orange {
+                      color = <LED_COLOR_ID_AMBER>;
+                      function = LED_FUNCTION_WAN;
+              };
 
-		wps {
-			label = "wps";
-			gpios = <&gpio0 15 GPIO_ACTIVE_LOW>;
-			linux,code = <KEY_WPS_BUTTON>;
-		};
-	};
-};
+                 led-wan-green {
+                      color = <LED_COLOR_ID_GREEN>;
+                      function = LED_FUNCTION_WAN;
+                        gpios = <&gpio 14 GPIO_ACTIVE_LOW>;
+             };
+ 
+               led-wifi5g {
+                     color = <LED_COLOR_ID_GREEN>;
+                       function = LED_FUNCTION_WLAN;
+                     function-enumerator = <5>;
+                      gpios = <&gpio 15 GPIO_ACTIVE_LOW>;
+                      linux,default-trigger = "phy1tpt";
+               };
+
+             led-wifi2g {
+                        color = <LED_COLOR_ID_GREEN>;
+                       function = LED_FUNCTION_WLAN;
+                     function-enumerator = <2>;
+                       gpios = <&gpio 16 GPIO_ACTIVE_LOW>;
+                      linux,default-trigger = "phy0tpt";
+               };
+               led_power: led-power {
+                        label = "green:power"; // to be removed once #13837 is merged
+                        color = <LED_COLOR_ID_GREEN>;
+                       function = LED_FUNCTION_POWER;
+                       gpios = <&gpio 18 GPIO_ACTIVE_LOW>;
+               };
+       };
+ };
 
 &spi0 {
 	status = "okay";
